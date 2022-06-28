@@ -4,21 +4,18 @@ async function admin(){
     const bookList = await bookListResponse.json();
     
     const ul = document.createElement("ul");
-    
     bookList.forEach(book => {
-
-        
-        const li = document.createElement = ('li')
+        const li = document.createElement('li');
         li.textContent = book.title;
 
-        const textInput = document.createElement('li');
+        const textInput = document.createElement("input");
         textInput.type = 'text';
         textInput.value = book.quantity;
         li.append(textInput);
 
         const button = document.createElement('input');
         button.type = 'button';
-        button.value = 'save';
+        button.value = 'SAVE';
         button.addEventListener('click', async()=>{
             await fetch('http://localhost:3001/updateBook'), {
                 method: 'PATCH',
@@ -28,13 +25,15 @@ async function admin(){
                 body: JSON.stringify({
                     id: book.id,
                     quantity: textInput.value
-                })
-            }
-        })
+                }),
+            };
+        });
         li.append(button);
-        ul.append(li)
-    })
+        ul.append(li);
+    });
+    const root = document.querySelector("#root");
+    root.append (ul);
     // place text input next to each boook titilesgive each text input a value 
     // place submit button next to each bookwhen submit button clicked, retrieve quantity
 }
-admin()
+admin();
